@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>2.) Render Plot</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="plotly-timeseries"></div>
+            <script>
+            var graph = {{ plot_json | safe }};
+            Plotly.plot('plotly-timeseries', graph, {});
+            </script>
+        </div>
+        <h2>Create Forecast</h2>
+        <form action="">
+            <label for="future">Future range:</label><br>
+            <input type="text" id="future" placeholder="# of Days" name="future"><br>
+            <input type="radio" id="fc-log" name="fc-log">
+            <label for="fc-log">Logistic Forecast:</label><br>
+            <input type="radio" id="fc-lin" name="fc-lin">
+            <label for="fc-lin">Linear Forecast:</label><br>
+        </form>
+    </div>
+    <form method="get" action="/review_forecast">
+        <button type="submit">Go</button>
+    </form>
+</div>
+</body>
+</html>

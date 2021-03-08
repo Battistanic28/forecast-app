@@ -1,4 +1,6 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, flash, render_template, redirect, request, url_for
+from werkzeug.utils import secure_filename
+import os
 
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, plot_components_plotly
@@ -8,21 +10,44 @@ import plotly
 import plotly.express as px
 import json
 
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = {'CSV'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123ABC'
+app.config['FILE_UPLOADS'] = '/Users/nickbattista/Desktop/html-plot/static/file_uploads'
+
+
+
+# @app.route("/")
+# def upload_csv():
+#     """Upload dataset."""
+#     return render_template('upload.html')
 
 @app.route("/")
+def homepage_redirect():
+    """Redirect user to homepage."""
+    return redirect('/upload_file')
+
+
+@app.route("/upload_file", methods=["GET", "POST"])
 def upload_csv():
     """Upload dataset."""
+    if request.method == 'POST':
+        if request.files:
+            file = request.files['filename']
+            file.save(os.path.join(app.config['FILE_UPLOADS'], file.filename))
+            print(file.filename)
+            return redirect(f"/render_plot/{file.filename}")
     return render_template('upload.html')
 
 
-@app.route("/render_plot")
-def render_plot():
+@app.route("/render_plot/<filename>")
+def render_plot(filename):
     """Render plot in HTML."""
-    df = pd.read_csv('example_peyton.csv')
-    fig = px.line(df, x = 'ds', y = 'y', title='Peyton Data')
+
+    df = pd.read_csv(f"static/file_uploads/{filename}")
+    fig = px.line(df, x = 'ds', y = 'y', title='Data')
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     # fig.show()
 

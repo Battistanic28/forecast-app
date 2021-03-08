@@ -10,6 +10,8 @@ import plotly
 import plotly.express as px
 import json
 
+
+# ******************** APP CONFIG **********************
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'CSV'}
 
@@ -18,12 +20,7 @@ app.config['SECRET_KEY'] = '123ABC'
 app.config['FILE_UPLOADS'] = '/Users/nickbattista/Desktop/html-plot/static/file_uploads'
 
 
-
-# @app.route("/")
-# def upload_csv():
-#     """Upload dataset."""
-#     return render_template('upload.html')
-
+# ******************** DATA UPLOAD AND PLOT RENDER **********************
 @app.route("/")
 def homepage_redirect():
     """Redirect user to homepage."""
@@ -54,6 +51,7 @@ def render_plot(filename):
     return render_template('render_plot.html', plot_json=plot_json)
 
 
+# ******************** FORECAST **********************
 @app.route("/review_forecast")
 def review_forecast():
     """Review forecast."""

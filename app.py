@@ -46,7 +46,6 @@ def render_plot(filename):
     df = pd.read_csv(f"static/file_uploads/{filename}")
     fig = px.line(df, x = 'ds', y = 'y', title='Data')
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    # fig.show()
 
     return render_template('render_plot.html', plot_json=plot_json)
 
@@ -55,19 +54,18 @@ def render_plot(filename):
 @app.route("/review_forecast")
 def review_forecast():
     """Review forecast."""
-    df = pd.read_csv('example_peyton.csv')
+    df = pd.read_csv('/Users/nickbattista/Desktop/html-plot/static/file_uploads/example_yosemite_temps.csv')
     df = df[df['ds'].notna()]
 
     m = Prophet()
     m.fit(df)
 
-    future = m.make_future_dataframe(periods=365)
+    future = m.make_future_dataframe(periods=10)
     future.tail()
 
     forecast = m.predict(future)
-    forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+    fig = px.line(forecast, x = 'ds', y = 'yhat', title='Data')
 
-    fig = m.plot(forecast)
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('review_forecast.html', forecast_json=forecast_json)

@@ -12,7 +12,6 @@ import json
 
 
 # ******************** APP CONFIG **********************
-UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'CSV'}
 
 app = Flask(__name__)
@@ -70,3 +69,11 @@ def review_forecast():
 
     return render_template('review_forecast.html', forecast_json=forecast_json)
 
+
+# ******************** DATA EXPORT **********************
+@app.route("/export_data")
+def export_data():
+    """Export forecast data."""
+    filename = "yosemite_temps"
+    df = pd.read_csv('/Users/nickbattista/Desktop/html-plot/static/file_uploads/example_yosemite_temps.csv')
+    df.to_csv(f"/Users/nickbattista/Downloads/{filename}.csv")

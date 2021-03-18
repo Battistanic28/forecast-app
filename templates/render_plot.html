@@ -21,18 +21,12 @@
             </script>
         </div>
         <h2>Create Forecast</h2>
-        <form action="">
+        <form method="POST" action="/generate_forecast/{{filename}}">
             <label for="future">Future range:</label><br>
             <input type="text" id="future" placeholder="# of Days" name="future"><br>
-            <input type="radio" id="fc-log" name="fc-log">
-            <label for="fc-log">Logistic Forecast:</label><br>
-            <input type="radio" id="fc-lin" name="fc-lin">
-            <label for="fc-lin">Linear Forecast:</label><br>
+            <input type="submit">
         </form>
     </div>
-    <form method="get" action="/review_forecast">
-        <button type="submit">Go</button>
-    </form>
 </div>
 
 

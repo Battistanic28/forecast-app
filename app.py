@@ -33,33 +33,35 @@ def upload_csv():
         if request.files:
             file = request.files['filename']
             file.save(os.path.join(app.config['FILE_UPLOADS'], file.filename))
-            print(file.filename)
             return redirect(f"/render_plot/{file.filename}")
     return render_template('upload.html')
 
 
-@app.route("/render_plot/<filename>")
+@app.route("/render_plot/<filename>", methods=["GET", "POST"])
 def render_plot(filename):
     """Render plot in HTML."""
 
     df = pd.read_csv(f"static/file_uploads/{filename}")
     fig = px.line(df, x = 'ds', y = 'y', title='Data')
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+    return render_template('render_plot.html', plot_json=plot_json, filename=filename)
 
-    return render_template('render_plot.html', plot_json=plot_json)
 
 
 # ******************** FORECAST **********************
-@app.route("/review_forecast")
-def review_forecast():
-    """Review forecast."""
-    df = pd.read_csv('/Users/nickbattista/Desktop/html-plot/static/file_uploads/example_yosemite_temps.csv')
+@app.route("/generate_forecast/<filename>", methods=["POST"])
+def generate_forecast(filename):
+    """Generate forecast."""
+    df = pd.read_csv(f"static/file_uploads/{filename}")
     df = df[df['ds'].notna()]
 
     m = Prophet()
     m.fit(df)
 
-    future = m.make_future_dataframe(periods=10)
+    forecast_length = int(request.form['future'])
+    print(forecast_length)
+    future = m.make_future_dataframe(periods=forecast_length)
     future.tail()
 
     forecast = m.predict(future)
@@ -71,8 +73,8 @@ def review_forecast():
 
 
 # ******************** DATA EXPORT **********************
-@app.route("/export_data")
-def export_data():
+@app.route("/export_data/<filename>")
+def export_data(filename):
     """Export forecast data."""
     filename = "yosemite_temps"
     df = pd.read_csv('/Users/nickbattista/Desktop/html-plot/static/file_uploads/example_yosemite_temps.csv')

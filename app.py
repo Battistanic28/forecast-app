@@ -43,7 +43,16 @@ def render_plot(filename):
     """Render plot in HTML."""
 
     df = pd.read_csv(f"static/file_uploads/{filename}")
-    fig = px.line(df, x = 'ds', y = 'y', title='Data')
+    
+    actual = go.Scatter(
+        name = 'actuals',
+        x = df['ds'],
+        y = df['y'],
+        mode='lines+markers',
+        line=dict(color='rgb(0,0,0)')
+    )
+
+    fig = go.Figure(actual)
 
     fig.update_layout(
     autosize=False,

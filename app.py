@@ -44,6 +44,12 @@ def render_plot(filename):
 
     df = pd.read_csv(f"static/file_uploads/{filename}")
     fig = px.line(df, x = 'ds', y = 'y', title='Data')
+
+    fig.update_layout(
+    autosize=False,
+    width=1300,
+    height=800)
+    
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Summarize dataset statistics
@@ -114,6 +120,11 @@ def generate_forecast(filename):
     fig.add_trace(yhat)
     fig.add_trace(yhat_upper)
     fig.add_trace(yhat_lower)
+
+    fig.update_layout(
+    autosize=False,
+    width=1300,
+    height=800)
 
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template('review_forecast.html', forecast_json=forecast_json)

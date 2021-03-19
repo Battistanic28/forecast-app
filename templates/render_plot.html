@@ -20,6 +20,13 @@
             Plotly.plot('plotly-timeseries', graph, {});
             </script>
         </div>
+        <div>
+            <h2>Statistics Summary</h2>
+            <p>Min: {{min}}</p>
+            <p>Max: {{max}}</p>
+            <p>Mean: {{mean}}</p>
+            <p>Standard Deviation: {{std}}</p>
+        </div>
         <h2>Create Forecast</h2>
         <form method="POST" action="/generate_forecast/{{filename}}">
             <label for="future">Future range:</label><br>

@@ -44,8 +44,14 @@ def render_plot(filename):
     df = pd.read_csv(f"static/file_uploads/{filename}")
     fig = px.line(df, x = 'ds', y = 'y', title='Data')
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    # Summary statistics
+    min = round(df['y'].min(),2)
+    max = round(df['y'].max(),2)
+    mean = round(df['y'].mean(),2)
+    std =  round(df['y'].std(),2)
     
-    return render_template('render_plot.html', plot_json=plot_json, filename=filename)
+    return render_template('render_plot.html', plot_json=plot_json, filename=filename, min=min, max=max, mean=mean, std=std)
 
 
 
@@ -60,7 +66,7 @@ def generate_forecast(filename):
     m.fit(df)
 
     forecast_length = int(request.form['future'])
-    print(forecast_length)
+
     future = m.make_future_dataframe(periods=forecast_length)
     future.tail()
 

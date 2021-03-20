@@ -48,7 +48,7 @@ def render_plot(filename):
         name = 'actuals',
         x = df['ds'],
         y = df['y'],
-        mode='lines+markers',
+        mode='markers',
         line=dict(color='rgb(0,0,0)')
     )
 
@@ -123,6 +123,8 @@ def generate_forecast(filename):
         mode='markers',
         line=dict(color='rgb(0,0,0)')
     )
+    fcst_mean = round(forecast['yhat'].mean(),2)
+    fcst_std = round(forecast['yhat'].std(),2)
 
     fig = go.Figure(actual)
 
@@ -136,7 +138,7 @@ def generate_forecast(filename):
     height=800)
 
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('review_forecast.html', forecast_json=forecast_json)
+    return render_template('review_forecast.html', forecast_json=forecast_json, mean=fcst_mean, std=fcst_std)
 
 
 # ******************** DATA EXPORT **********************

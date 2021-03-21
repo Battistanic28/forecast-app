@@ -1,6 +1,6 @@
 from flask import Flask, flash, render_template, redirect, request, url_for
 from werkzeug.utils import secure_filename
-from helper import forecast, generate_dataset_JSON, generate_forecast_JSON
+from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os
 
 
@@ -34,7 +34,8 @@ def upload_csv():
 def render_plot(filename):
     """Render plot in HTML."""
     
-    dataset = f"{app.config['FILE_UPLOADS']}/{filename}"
+    file = f"{app.config['FILE_UPLOADS']}/{filename}"
+    dataset = read_dataset(file)
     plot_json = generate_dataset_JSON(dataset)
     
     return render_template('render_plot.html', plot_json=plot_json, filename=filename)
@@ -45,9 +46,11 @@ def render_plot(filename):
 def render_forecast(filename):
     """Generate forecast and forecast JSON."""
 
-    dataset = f"{app.config['FILE_UPLOADS']}/{filename}"
+    file = f"{app.config['FILE_UPLOADS']}/{filename}"
     forecast_length = int(request.form['future'])
-    forecast_json = generate_forecast_JSON(dataset, forecast_length)
+    df = read_dataset(file)
+    fc = forecast(df, forecast_length)
+    forecast_json = generate_forecast_JSON(df, fc)
 
     return render_template('review_forecast.html', forecast_json=forecast_json)
     

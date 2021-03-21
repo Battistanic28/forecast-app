@@ -8,9 +8,18 @@ import plotly.graph_objects as go
 import json
 
 
-def forecast(filename, forecast_length):
+
+def read_dataset(dataset):
+    """Read input dataset csv."""
+
+    df = pd.read_csv(dataset)
+
+    return df
+
+
+def forecast(dataset, forecast_length):
     """Generates Facebook Prophet forecast based on input file and forecast length."""
-    df = pd.read_csv(filename)
+    df = dataset
     df = df[df['ds'].notna()]
 
     m = Prophet()
@@ -23,35 +32,10 @@ def forecast(filename, forecast_length):
     return forecast
 
 
-def generate_dataset_JSON(dataset):
-    """Generates plot JSON based on input dataset."""
-
-    df = pd.read_csv(dataset)
-    
-    actual = go.Scatter(
-        name = 'actuals',
-        x = df['ds'],
-        y = df['y'],
-        mode='markers',
-        line=dict(color='rgb(0,0,0)')
-    )
-
-    fig = go.Figure(actual)
-
-    fig.update_layout(
-    autosize=False,
-    width=1300,
-    height=800)
-    
-    plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return plot_json
 
 
-def generate_forecast_JSON(dataset, forecast_length):
-    """Generates forecast JSON based on input dataset."""
-
-    df = pd.read_csv(dataset)
-    fc = forecast(dataset, forecast_length)
+def generate_forecast_JSON(df, fc):
+    """Generates forecast data based on input dataset."""
 
     yhat = go.Scatter(
         name = 'forecast',
@@ -104,3 +88,25 @@ def generate_forecast_JSON(dataset, forecast_length):
 
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return forecast_json
+
+
+def generate_dataset_JSON(df):
+    """Generates plot JSON based on input dataset."""
+
+    actual = go.Scatter(
+        name = 'actuals',
+        x = df['ds'],
+        y = df['y'],
+        mode='markers',
+        line=dict(color='rgb(0,0,0)')
+    )
+
+    fig = go.Figure(actual)
+
+    fig.update_layout(
+    autosize=False,
+    width=1300,
+    height=800)
+    
+    plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return plot_json

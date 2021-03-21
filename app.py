@@ -1,15 +1,7 @@
 from flask import Flask, flash, render_template, redirect, request, url_for
 from werkzeug.utils import secure_filename
+from helper import forecast, generate_dataset_JSON, generate_forecast_JSON
 import os
-
-from fbprophet import Prophet
-from fbprophet.plot import plot_plotly, plot_components_plotly
-
-import pandas as pd
-import plotly
-import plotly.express as px
-import plotly.graph_objects as go
-import json
 
 
 # ******************** APP CONFIG **********************
@@ -41,105 +33,24 @@ def upload_csv():
 @app.route("/render_plot/<filename>", methods=["GET", "POST"])
 def render_plot(filename):
     """Render plot in HTML."""
-
-    df = pd.read_csv(f"static/file_uploads/{filename}")
     
-    actual = go.Scatter(
-        name = 'actuals',
-        x = df['ds'],
-        y = df['y'],
-        mode='markers',
-        line=dict(color='rgb(0,0,0)')
-    )
-
-    fig = go.Figure(actual)
-
-    fig.update_layout(
-    autosize=False,
-    width=1300,
-    height=800)
+    dataset = f"{app.config['FILE_UPLOADS']}/{filename}"
+    plot_json = generate_dataset_JSON(dataset)
     
-    plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Summarize dataset statistics
-    min = round(df['y'].min(),2)
-    max = round(df['y'].max(),2)
-    mean = round(df['y'].mean(),2)
-    std =  round(df['y'].std(),2)
-    
-    return render_template('render_plot.html', plot_json=plot_json, filename=filename, min=min, max=max, mean=mean, std=std)
-
+    return render_template('render_plot.html', plot_json=plot_json, filename=filename)
 
 
 # ******************** FORECAST **********************
 @app.route("/generate_forecast/<filename>", methods=["POST"])
-def generate_forecast(filename):
-    """Generate forecast."""
-    df = pd.read_csv(f"static/file_uploads/{filename}")
-    df = df[df['ds'].notna()]
+def render_forecast(filename):
+    """Generate forecast and forecast JSON."""
 
-    m = Prophet()
-    m.fit(df)
-
+    dataset = f"{app.config['FILE_UPLOADS']}/{filename}"
     forecast_length = int(request.form['future'])
-    future = m.make_future_dataframe(periods=forecast_length)
-    future.tail()
-    forecast = m.predict(future)
+    forecast_json = generate_forecast_JSON(dataset, forecast_length)
 
-    yhat = go.Scatter(
-        name = 'forecast',
-        x = forecast['ds'],
-        y = forecast['yhat'],
-        mode='lines',
-        line=dict(color='rgb(31, 119, 180)')
-    )
-
-    yhat_upper = go.Scatter(
-        name='Upper Bound',
-        x=forecast['ds'],
-        y=forecast['yhat_upper'],
-        mode='lines',
-        marker=dict(color="#444"),
-        line=dict(width=0),
-        showlegend=False     
-    )
-
-    yhat_lower = go.Scatter(
-        name='Lower Bound',
-        x=forecast['ds'],
-        y=forecast['yhat_lower'],
-        marker=dict(color="#444"),
-        line=dict(width=0),
-        mode='lines',
-        fillcolor='rgba(68, 68, 68, 0.3)',
-        fill='tonexty',
-        showlegend=False
-    )  
-
-    actual = go.Scatter(
-        name = 'actuals',
-        x = forecast['ds'],
-        y = df['y'],
-        mode='markers',
-        line=dict(color='rgb(0,0,0)')
-    )
-    fcst_mean = round(forecast['yhat'].mean(),2)
-    fcst_std = round(forecast['yhat'].std(),2)
-
-    fig = go.Figure(actual)
-
-    fig.add_trace(yhat)
-    fig.add_trace(yhat_upper)
-    fig.add_trace(yhat_lower)
-
-    fig.update_layout(
-    autosize=False,
-    width=1300,
-    height=800)
-
-    forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('review_forecast.html', forecast_json=forecast_json, mean=fcst_mean, std=fcst_std)
-
+    return render_template('review_forecast.html', forecast_json=forecast_json)
+    
 
 # ******************** DATA EXPORT **********************
 @app.route("/export_data/<filename>")

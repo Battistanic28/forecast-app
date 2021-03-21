@@ -32,8 +32,6 @@ def forecast(dataset, forecast_length):
     return forecast
 
 
-
-
 def generate_forecast_JSON(df, fc):
     """Generates forecast data based on input dataset."""
 

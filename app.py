@@ -2,6 +2,7 @@ from flask import Flask, flash, render_template, redirect, request, url_for
 from werkzeug.utils import secure_filename
 from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os
+import pandas as pd
 
 
 # ******************** APP CONFIG **********************
@@ -35,10 +36,15 @@ def render_plot(filename):
     """Render plot in HTML."""
     
     file = f"{app.config['FILE_UPLOADS']}/{filename}"
-    dataset = read_dataset(file)
-    plot_json = generate_dataset_JSON(dataset)
+    df = read_dataset(file)
+    plot_json = generate_dataset_JSON(df)
+
+    min = str(round(df['y'].min(),2))
+    max = str(round(df['y'].max(),2))
+    mean = str(round(df['y'].mean(),2))
+    std = str(round(df['y'].std(),2))
     
-    return render_template('render_plot.html', plot_json=plot_json, filename=filename)
+    return render_template('render_plot.html', plot_json=plot_json, filename=filename, min=min, max=max, mean=mean, std=std)
 
 
 # ******************** FORECAST **********************
@@ -52,7 +58,12 @@ def render_forecast(filename):
     fc = forecast(df, forecast_length)
     forecast_json = generate_forecast_JSON(df, fc)
 
-    return render_template('review_forecast.html', forecast_json=forecast_json)
+    min = str(round(fc['yhat'].min(),2))
+    max = str(round(fc['yhat'].max(),2))
+    mean = str(round(fc['yhat'].mean(),2))
+    std = str(round(fc['yhat'].std(),2))
+
+    return render_template('review_forecast.html', forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
     
 
 # ******************** DATA EXPORT **********************

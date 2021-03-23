@@ -1,4 +1,4 @@
-from flask import Flask, flash, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os
@@ -10,8 +10,8 @@ ALLOWED_EXTENSIONS = {'CSV'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123ABC'
-app.config['FILE_UPLOADS'] = '/Users/nickbattista/Desktop/html-plot/static/file_uploads'
-
+app.config['FILE_UPLOADS'] = '/Users/nickbattista/Desktop/html-plot/static/client/file_uploads'
+app.config['CLIENT_FILES'] = '/Users/nickbattista/Desktop/html-plot/static/client/file_downloads'
 
 # ******************** DATA UPLOAD AND PLOT RENDER **********************
 @app.route("/")
@@ -66,11 +66,9 @@ def render_forecast(filename):
     return render_template('review_forecast.html', forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
     
 
-# ******************** DATA EXPORT **********************
-@app.route("/export_data/<filename>")
-def export_data(filename):
-    """Export forecast data."""
-    filename = filename
-    df = pd.read_csv('/Users/nickbattista/Desktop/html-plot/static/{filename}.csv')
-    df.to_csv(f"/Users/nickbattista/Downloads/{filename}.csv")
-
+# ******************** EXPORT **********************
+@app.route("/export/<filename>")
+def get_data(filename):
+    """Export client data."""
+    export = send_from_directory(app.config['CLIENT_FILES'], filename=filename, as_attachment=True)
+    return export

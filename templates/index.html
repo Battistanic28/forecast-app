@@ -6,17 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/css/uikit.min.css" />
 
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit-icons.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div>
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-panel uk-panel-box uk-navbar-left">
+            <a class="uk-navbar-item uk-logo" href="#">Prophet</a>
+        </div>
+        <div class="uk-navbar-right">
+            <a class="uk-navbar-item uk-navbar-right" href="#">Docs</a>
+            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank">Repo</a>
+        </div>
+    </nav>
+    </div>
 
+    <div class="main-body uk-flex" uk-grid>
+        <div class="">
+            <ul class="uk-tab-left" uk-tab>
+                <li class="uk-active"><a href="#">1) Upload dataset</a></li>
+                <li><a href="#">2) Render plot</a></li>
+                <li><a href="#">3) Review forecast</a></li>
+            </ul>
+        </div>
+        <div class="dataset-body uk-card uk-card-default uk-card-body">
+            <div class="">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

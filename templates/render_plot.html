@@ -1,29 +1,46 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1>2.) Render Plot</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div id="plotly-timeseries"></div>
-            <script>
-            var graph = {{ plot_json | safe }};
-            Plotly.plot('plotly-timeseries', graph, {});
-            </script>
-        </div>
-        <div>
-            <h2>Statistics Summary</h2>
-            <p>Min: {{min}}</p>
-            <p>Max: {{max}}</p>
-            <p>Mean: {{mean}}</p>
-            <p>Standard Deviation: {{std}}</p>
-        </div>
-        <h2>Create Forecast</h2>
-        <form method="POST" action="/generate_forecast/{{filename}}">
-            <label for="future">Future range:</label><br>
-            <input type="text" id="future" placeholder="# of Days" name="future"><br>
-            <input type="submit">
-        </form>
-    </div>
+
+<!-- <div class="loading" uk-spinner="ratio: 3"></div> -->
+
+<div id="plotly-timeseries">
+    <script>
+    var graph = {{ plot_json | safe }};
+    Plotly.plot('plotly-timeseries', graph, {});
+    </script>
 </div>
+
+<div class="uk-child-width-1-4@s" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+            <h3 class="uk-card-title">Mean:</h3>
+            <p>{{mean}}</p>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+            <h3 class="uk-card-title">Min:</h3>
+            <p>{{min}}</p>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+            <h3 class="uk-card-title">Max:</h3>
+            <p>{{max}}</p>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+            <h3 class="uk-card-title">Stdv:</h3>
+            <p>{{std}}</p>
+        </div>
+    </div>
+<div>
+<form method="POST" action="/generate_forecast/{{filename}}">
+    <label for="future">Future range:</label><br>
+    <input type="text" id="future" placeholder="# of Days" name="future"><br>
+    <input class="uk-button uk-button-default" type="submit">
+</form>
+
 {% endblock %}

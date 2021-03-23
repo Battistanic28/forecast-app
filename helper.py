@@ -1,3 +1,5 @@
+import app
+
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, plot_components_plotly
 
@@ -5,6 +7,7 @@ import pandas as pd
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 import json
 
 
@@ -28,7 +31,9 @@ def forecast(dataset, forecast_length):
     future = m.make_future_dataframe(periods=forecast_length)
     future.tail()
     forecast = m.predict(future)
-    
+
+    forecast.to_csv('/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/forecast_data.csv')
+
     return forecast
 
 
@@ -81,8 +86,8 @@ def generate_forecast_JSON(df, fc):
 
     fig.update_layout(
     autosize=False,
-    width=1300,
-    height=800)
+    width=900,
+    height=700)
 
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return forecast_json
@@ -103,8 +108,10 @@ def generate_dataset_JSON(df):
 
     fig.update_layout(
     autosize=False,
-    width=1300,
-    height=800)
+    width=900,
+    height=700)
     
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return plot_json
+
+

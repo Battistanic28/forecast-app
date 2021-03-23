@@ -1,9 +1,10 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <h1>1.) Upload File</h1>
-    <form action="/upload_file" method="POST" enctype="multipart/form-data">
-        <input type="file" id="myFile" name="filename">
-        <input type="submit">
-      </form>
+<div>
+  <form action="/upload_file" method="POST" enctype="multipart/form-data">
+      <input  class="uk-button uk-button-default" type="file" id="myFile" name="filename">
+      <input  class="uk-button uk-button-default" type="submit">
+  </form>
+</div>
 {% endblock %}

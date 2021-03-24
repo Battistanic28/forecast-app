@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 #### File upload:
 Dataset files should be formatted in accordance to the example here,
-![Sample File](/static/sample.png)
+![Sample File](/static/images/sample.png)
 The "ds" and "y" headers are a requirement at this stage in development.
 
 #### Forecast length:

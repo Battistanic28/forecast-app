@@ -21,13 +21,13 @@
             <a class="uk-navbar-item uk-logo" href="#">Prophet</a>
         </div>
         <div class="uk-navbar-right">
-            <a class="uk-navbar-item uk-navbar-right" href="#">Docs</a>
-            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank">Repo</a>
+            <a uk-icon="icon: file-text"  class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank">Docs</a>
+            <a uk-icon="icon: git-fork" class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank">Repo</a>
         </div>
     </nav>
     </div>
 
-    <div class="main-body uk-flex" uk-grid>
+    <div class="main-body uk-flex-left" uk-grid>
         <div class="">
             <ul class="uk-tab-left" uk-tab>
                 <li class="uk-active"><a href="#">1) Upload dataset</a></li>
@@ -35,7 +35,7 @@
                 <li><a href="#">3) Review forecast</a></li>
             </ul>
         </div>
-        <div class="dataset-body uk-card uk-card-default uk-card-body">
+        <div class="dataset-body uk-flex-right">
             <div class="">
                 {% block content %}
                 {% endblock %}

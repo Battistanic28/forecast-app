@@ -55,7 +55,7 @@ def render_forecast(filename):
     file = f"{app.config['FILE_UPLOADS']}/{filename}"
     forecast_length = int(request.form['future'])
     df = read_dataset(file)
-    fc = forecast(df, forecast_length)
+    fc = forecast(df, forecast_length, filename)
     forecast_json = generate_forecast_JSON(df, fc)
 
     min = str(round(fc['yhat'].min(),2))
@@ -63,7 +63,7 @@ def render_forecast(filename):
     mean = str(round(fc['yhat'].mean(),2))
     std = str(round(fc['yhat'].std(),2))
 
-    return render_template('review_forecast.html', forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
+    return render_template('review_forecast.html', filename=filename, forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
     
 
 # ******************** EXPORT **********************

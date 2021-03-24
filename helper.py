@@ -20,7 +20,7 @@ def read_dataset(dataset):
     return df
 
 
-def forecast(dataset, forecast_length):
+def forecast(dataset, forecast_length, filename):
     """Generates Facebook Prophet forecast based on input file and forecast length."""
     df = dataset
     df = df[df['ds'].notna()]
@@ -32,7 +32,7 @@ def forecast(dataset, forecast_length):
     future.tail()
     forecast = m.predict(future)
 
-    forecast.to_csv('/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/forecast_data.csv')
+    forecast.to_csv(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/forecast_{filename}")
 
     return forecast
 
@@ -89,6 +89,7 @@ def generate_forecast_JSON(df, fc):
     width=900,
     height=700)
 
+    fig.write_image(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/plot.png")
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return forecast_json
 

@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ## Demo
 
-![Forecast App Demo](/static/images/demo.gif =250x)
+![Forecast App Demo](/static/images/demo.gif)
 
 
 ## Usage

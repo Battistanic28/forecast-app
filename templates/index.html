@@ -12,17 +12,18 @@
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit-icons.min.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>datapeek!</title>
 </head>
 <body>
     <div>
     <nav class="uk-navbar-container uk-margin" uk-navbar>
         <div class="uk-panel uk-panel-box uk-navbar-left">
-            <a class="uk-navbar-item uk-logo" href="#">Prophet</a>
+            <a class="uk-navbar-item uk-logo" href="/"><i class="fas fa-hat-wizard fa-md"></i>datapeek!</a>
         </div>
         <div class="uk-navbar-right">
-            <a uk-icon="icon: file-text"  class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank">Docs</a>
-            <a uk-icon="icon: git-fork" class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank">Repo</a>
+            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank"><i uk-icon="icon: file-text"></i>Docs</a>
+            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank"><i uk-icon="icon: git-fork"></i>Repo</a>
         </div>
     </nav>
     </div>
@@ -34,14 +35,17 @@
                 <li><a href="#">2) Render plot</a></li>
                 <li><a href="#">3) Review forecast</a></li>
             </ul>
+            <a class="uk-button uk-button-default" href="/">Start over</a>
         </div>
-        <div class="dataset-body uk-flex-right">
+        <div class="dataset-body uk-flex-right uk-animation-fade">
             <div class="">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
     </div>
-
+<div>
+    <p>Powered by <a href="https://facebook.github.io/prophet/" target="_blank">Facebook Prophet</a></p>
+</div>
 </body>
 </html>

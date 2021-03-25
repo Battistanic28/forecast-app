@@ -35,3 +35,4 @@ The input value for the forecast "future range" should be represented in number 
 Currently there are two options for data export.
 - Forecast data (csv only)
 - Forecast plot (jpeg only)
+

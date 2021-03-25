@@ -4,7 +4,7 @@
 
 <!-- <div class="loading" uk-spinner="ratio: 3"></div> -->
 
-<div id="plotly-timeseries">
+<div id="plotly-timeseries" class="uk-animation-scale-up">
     <script>
     var graph = {{ plot_json | safe }};
     Plotly.plot('plotly-timeseries', graph, {});

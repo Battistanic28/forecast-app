@@ -2,11 +2,16 @@
 
 {% block content %}
 <div>
-  <p>Get started by importing your data. Follow the "ds" "y" format in the example provided here.</p>
-  <img src="/static/images/sample.png" alt="sample file image" width="250">
-  <form action="/upload_file" method="POST" enctype="multipart/form-data">
-      <input  class="uk-background-muted uk-button uk-button-default" type="file" id="myFile" name="filename">
-      <input  class="uk-button uk-button-default" type="submit">
-  </form>
+  <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+    <h3 class="uk-card-title">Upload dataset</h3>
+    <p>Get started by importing your data. Follow the "ds" "y" format in the example below.</p>
+    <img src="/static/images/sample.png" alt="sample file image" width="250">
+  </div>
+  <div>
+    <form action="/upload_file" method="POST" enctype="multipart/form-data">
+        <input  class="uk-background-muted uk-button uk-button-default" type="file" id="myFile" name="filename">
+        <input  class="uk-button uk-button-default" type="submit">
+    </form>
+  </div>
 </div>
 {% endblock %}

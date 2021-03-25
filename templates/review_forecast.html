@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div id="plotly-timeseries"></div>
+                <div id="plotly-timeseries" class="uk-animation-scale-up"></div>
                 <script>
                 var graph = {{ forecast_json | safe }};
                 Plotly.plot('plotly-timeseries', graph, {});
@@ -43,11 +43,11 @@
         <div class="uk-block">
             <button uk-icon="icon: download" class="uk-button uk-button-primary" type="button">Export Results</button>
             <div uk-dropdown>
-                <form method="GET" action="/export/forecast_{{filename}}.csv">
-                    <button class="uk-button uk-button-default" type="submit">forecast_{{filename}}.csv</button>
+                <form method="GET" action="/export/forecast_{{filename}}">
+                    <button class="uk-button uk-button-default" type="submit">forecast_{{filename}}</button>
                 </form>
-                <form method="GET" action="/export/plot_forecast_{{filename}}.png">
-                    <button class="uk-button uk-button-default" type="submit">plot_forecast_{{filename}}.png</button>
+                <form method="GET" action="/export/plot.png">
+                    <button class="uk-button uk-button-default" type="submit">plot.png</button>
                 </form>
             </div>
         </div>

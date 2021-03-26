@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<!-- <div class="loading" uk-spinner="ratio: 3"></div> -->
-
 <div id="plotly-timeseries" class="uk-animation-scale-up">
     <script>
     var graph = {{ plot_json | safe }};
@@ -11,36 +9,41 @@
     </script>
 </div>
 
-<div class="uk-child-width-1-4@s" uk-grid>
+<div class="uk-margin-xlarge-left" uk-grid>
     <div>
-        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+        <div class="uk-background-muted uk-card uk-card-default uk-card-small uk-card-body uk-text-center">            
+            <form method="POST" action="/generate_forecast/{{filename}}">
+                <label class="uk-legend" for="future">Future range:</label><br>
+                <input class="uk-background-muted uk-textarea" type="text" id="future" placeholder="# of days" name="future"><br>
+                <input class="uk-button uk-button-primary uk-width-1-1" type="submit">
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="uk-background-muted uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
             <h3 class="uk-card-title">Mean:</h3>
             <p>{{mean}}</p>
         </div>
     </div>
     <div>
-        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+        <div class="uk-background-muted uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
             <h3 class="uk-card-title">Min:</h3>
             <p>{{min}}</p>
         </div>
     </div>
     <div>
-        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+        <div class="uk-background-muted uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
             <h3 class="uk-card-title">Max:</h3>
             <p>{{max}}</p>
         </div>
     </div>
     <div>
-        <div class="uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
+        <div class="uk-background-muted uk-card uk-card-default uk-card-small uk-card-body uk-text-center">
             <h3 class="uk-card-title">Stdv:</h3>
             <p>{{std}}</p>
         </div>
     </div>
 <div>
-<form method="POST" action="/generate_forecast/{{filename}}">
-    <label class="uk-legend" for="future">Future range:</label><br>
-    <input class="uk-textarea" type="text" id="future" placeholder="# of Days" name="future"><br>
-    <input class="uk-button uk-button-default" type="submit">
-</form>
+
 
 {% endblock %}

@@ -17,18 +17,18 @@
 </head>
 <body>
     <div>
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
-        <div class="uk-panel uk-panel-box uk-navbar-left">
-            <a class="uk-navbar-item uk-logo" href="/"><i class="fas fa-hat-wizard fa-md"></i>datapeek!</a>
-        </div>
-        <div class="uk-navbar-right">
-            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank"><i uk-icon="icon: file-text"></i>Docs</a>
-            <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank"><i uk-icon="icon: git-fork"></i>Repo</a>
-        </div>
-    </nav>
+        <nav class="uk-navbar-container uk-margin" uk-navbar>
+            <div class="uk-panel uk-panel-box uk-navbar-left">
+                <a class="uk-navbar-item uk-logo" href="/"><i class="fas fa-hat-wizard fa-md"></i>datapeek!</a>
+            </div>
+            <div class="uk-navbar-right">
+                <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank"><i uk-icon="icon: file-text"></i>Docs</a>
+                <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app" target="_blank"><i uk-icon="icon: git-fork"></i>Repo</a>
+            </div>
+        </nav>
     </div>
 
-    <div class="main-body uk-flex-left" uk-grid>
+    <div class="uk-flex-left" uk-grid>
         <div class="">
             <ul class="uk-tab-left" uk-tab>
                 <li class="uk-active"><a href="#">1) Upload dataset</a></li>
@@ -37,14 +37,14 @@
             </ul>
             <a class="uk-button uk-button-default" href="/">Start over</a>
         </div>
-        <div class="dataset-body uk-flex-right uk-animation-fade">
+        <div class="dataset-body uk-margin-auto uk-flex-right uk-animation-fade">
             <div class="">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
     </div>
-<div>
+<div class="uk-position-bottom uk-text-center">
     <p>Powered by <a href="https://facebook.github.io/prophet/" target="_blank">Facebook Prophet</a></p>
 </div>
 </body>

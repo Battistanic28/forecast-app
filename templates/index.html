@@ -19,7 +19,7 @@
     <div>
         <nav class="uk-navbar-container uk-margin" uk-navbar>
             <div class="uk-panel uk-panel-box uk-navbar-left">
-                <a class="uk-navbar-item uk-logo" href="/"><i class="fas fa-hat-wizard fa-md"></i>datapeek!</a>
+                <a class="uk-navbar-item uk-logo uk-text-lighter uk-text-primary" href="/"><i class="fas fa-hat-wizard fa-md"></i>datapeek!</a>
             </div>
             <div class="uk-navbar-right">
                 <a class="uk-navbar-item uk-navbar-right" href="https://github.com/Battistanic28/forecast-app/blob/main/README.md" target="_blank"><i uk-icon="icon: file-text"></i>Docs</a>
@@ -29,14 +29,6 @@
     </div>
 
     <div class="uk-flex-left" uk-grid>
-        <div class="">
-            <ul class="uk-tab-left" uk-tab>
-                <li class="uk-active"><a href="#">1) Upload dataset</a></li>
-                <li><a href="#">2) Render plot</a></li>
-                <li><a href="#">3) Review forecast</a></li>
-            </ul>
-            <a class="uk-button uk-button-default" href="/">Start over</a>
-        </div>
         <div class="dataset-body uk-margin-auto uk-flex-right uk-animation-fade">
             <div class="">
                 {% block content %}

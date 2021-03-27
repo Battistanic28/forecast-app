@@ -86,7 +86,7 @@ def generate_forecast_JSON(df, fc, name):
 
     fig.update_layout(
     autosize=False,
-    width=900,
+    width=1000,
     height=700)
 
     fig.write_image(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/{name}.png")
@@ -109,7 +109,7 @@ def generate_dataset_JSON(df):
 
     fig.update_layout(
     autosize=False,
-    width=900,
+    width=1000,
     height=700)
     
     plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

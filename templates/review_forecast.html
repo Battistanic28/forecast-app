@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 
 {% block content %}
+<h2 class="uk-heading-line uk-text-center uk-text-lighter"><span>Review forecast!</span></h2>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -47,8 +48,9 @@
                     <button class="uk-button uk-button-default" type="submit">forecast_{{name}}.csv</button>
                 </form>
                 <form method="GET" action="/export/{{name}}.png">
-                    <button class="uk-button uk-button-default" type="submit">{{name}}.png</button>
+                    <button class="uk-button uk-button-default uk-width-1-1" type="submit">{{name}}.png</button>
                 </form>
             </div>
+            <a class="uk-button uk-button-secondary" href="/">Start over</a>
         </div>
 {% endblock %}

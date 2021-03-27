@@ -24,9 +24,10 @@ pip install -r requirements.txt
 ## Usage
 
 #### File upload:
-Dataset files should be formatted in accordance to the example here,
 ![Sample File](/static/images/sample.png)
-The "ds" and "y" headers are a requirement at this stage in development.
+- Dataset files should be formatted in accordance to the example above.
+- The "ds" and "y" headers are a requirement at this stage in development.
+- Download a sample file [here](/static/mean_temps.csv).
 
 #### Forecast length:
 The input value for the forecast "future range" should be represented in number of days.

@@ -37,7 +37,7 @@ def forecast(dataset, forecast_length, filename):
     return forecast
 
 
-def generate_forecast_JSON(df, fc):
+def generate_forecast_JSON(df, fc, name):
     """Generates forecast data based on input dataset."""
 
     yhat = go.Scatter(
@@ -89,7 +89,7 @@ def generate_forecast_JSON(df, fc):
     width=900,
     height=700)
 
-    fig.write_image(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/plot.png")
+    fig.write_image(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/{name}.png")
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return forecast_json
 

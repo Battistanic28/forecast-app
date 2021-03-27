@@ -43,11 +43,11 @@
         <div class="uk-align-center">
             <button uk-icon="icon: download" class="uk-button uk-button-primary" type="button">Export Results</button>
             <div uk-dropdown>
-                <form method="GET" action="/export/forecast_{{filename}}">
-                    <button class="uk-button uk-button-default" type="submit">forecast_{{filename}}</button>
+                <form method="GET" action="/export/forecast_{{name}}.csv">
+                    <button class="uk-button uk-button-default" type="submit">forecast_{{name}}.csv</button>
                 </form>
-                <form method="GET" action="/export/plot.png">
-                    <button class="uk-button uk-button-default" type="submit">plot.png</button>
+                <form method="GET" action="/export/{{name}}.png">
+                    <button class="uk-button uk-button-default" type="submit">{{name}}.png</button>
                 </form>
             </div>
         </div>

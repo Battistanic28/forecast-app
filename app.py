@@ -52,18 +52,21 @@ def render_plot(filename):
 def render_forecast(filename):
     """Generate forecast and forecast JSON."""
 
+    name = os.path.splitext(filename)[0]
     file = f"{app.config['FILE_UPLOADS']}/{filename}"
+
     forecast_length = int(request.form['future'])
     df = read_dataset(file)
     fc = forecast(df, forecast_length, filename)
-    forecast_json = generate_forecast_JSON(df, fc)
 
+    forecast_json = generate_forecast_JSON(df, fc, name)
+    
     min = str(round(fc['yhat'].min(),2))
     max = str(round(fc['yhat'].max(),2))
     mean = str(round(fc['yhat'].mean(),2))
     std = str(round(fc['yhat'].std(),2))
 
-    return render_template('review_forecast.html', filename=filename, forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
+    return render_template('review_forecast.html', name=name, filename=filename, forecast_json=forecast_json, min=min, max=max, mean=mean, std=std)
     
 
 # ******************** EXPORT **********************

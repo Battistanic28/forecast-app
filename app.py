@@ -1,4 +1,5 @@
 from flask import Flask, flash, render_template, redirect, request, url_for, send_from_directory
+from flask_s3 import flaskS3
 from werkzeug.utils import secure_filename
 from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os
@@ -10,8 +11,8 @@ ALLOWED_EXTENSIONS = {'CSV'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123ABC'
-app.config['FILE_UPLOADS'] = '/static/client/file_uploads'
-app.config['CLIENT_FILES'] = '/static/client/file_downloads'
+app.config['FILE_UPLOADS'] = 'http://s3.amazonaws.com/datapeek-client-files/uploads'
+app.config['CLIENT_FILES'] = 'http://s3.amazonaws.com/datapeek-client-files/downloads'
 
 # ******************** DATA UPLOAD AND PLOT RENDER **********************
 @app.route("/")

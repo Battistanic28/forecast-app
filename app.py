@@ -1,5 +1,4 @@
 from flask import Flask, flash, render_template, redirect, request, url_for, send_from_directory
-from flask_s3 import flaskS3
 from werkzeug.utils import secure_filename
 from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os

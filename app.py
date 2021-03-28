@@ -10,8 +10,8 @@ ALLOWED_EXTENSIONS = {'CSV'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123ABC'
-app.config['FILE_UPLOADS'] = '/Users/nickbattista/Desktop/html-plot/static/client/file_uploads'
-app.config['CLIENT_FILES'] = '/Users/nickbattista/Desktop/html-plot/static/client/file_downloads'
+app.config['FILE_UPLOADS'] = '/static/client/file_uploads'
+app.config['CLIENT_FILES'] = '/static/client/file_downloads'
 
 # ******************** DATA UPLOAD AND PLOT RENDER **********************
 @app.route("/")

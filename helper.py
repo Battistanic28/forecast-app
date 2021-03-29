@@ -32,7 +32,7 @@ def forecast(dataset, forecast_length, filename):
     future.tail()
     forecast = m.predict(future)
 
-    forecast.to_csv(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/forecast_{filename}")
+    forecast.to_csv(f"tmp/client_downloads/forecast_{filename}")
 
     return forecast
 
@@ -89,7 +89,7 @@ def generate_forecast_JSON(df, fc, name):
     width=1000,
     height=700)
 
-    fig.write_image(f"/Users/nickbattista/Desktop/html-plot/static/client/file_downloads/{name}.png")
+    fig.write_image(f"tmp/client_downloads/{name}.png")
     forecast_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return forecast_json
 

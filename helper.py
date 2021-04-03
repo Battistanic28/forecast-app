@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import json
 
 
-
 def read_dataset(dataset):
     """Read input dataset csv."""
 

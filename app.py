@@ -1,4 +1,4 @@
-from flask import Flask, Response, flash, render_template, redirect, request, url_for, send_from_directory
+from flask import Flask, Response, flash, render_template, redirect, request, url_for, send_from_directory, stream_with_context
 from werkzeug.utils import secure_filename
 from helper import forecast, read_dataset, generate_dataset_JSON, generate_forecast_JSON
 import os
@@ -46,12 +46,13 @@ def render_plot(filename):
     
     return render_template('render_plot.html', plot_json=plot_json, filename=filename, min=min, max=max, mean=mean, std=std)
 
-def stream_template(template_name, **context):
+def stream_template(template_name,**context):
     app.update_template_context(context)
     t = app.jinja_env.get_template(template_name)
     rv = t.stream(context)
     rv.enable_buffering(5)
     return rv
+
 # ******************** FORECAST **********************
 @app.route("/generate_forecast/<filename>", methods=["POST"])
 def render_forecast(filename):
@@ -72,7 +73,7 @@ def render_forecast(filename):
     std = str(round(fc['yhat'].std(),2))
 
     return Response(stream_template('review_forecast.html', name=name, filename=filename, forecast_json=forecast_json, min=min, max=max, mean=mean, std=std))
-    
+
 
 # ******************** EXPORT **********************
 @app.route("/export/<filename>")
